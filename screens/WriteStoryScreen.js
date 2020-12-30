@@ -2,17 +2,34 @@ import React from 'react';
 import { TouchableOpacity,View, Text} from 'react-native';
 import {Header} from 'react-native-elements'
 import {TextInput} from 'react-native-gesture-handler'
+import db from '../config'
+import firebase from 'firebase'
 
 export default class WriteStoryScreen extends React.Components{
   constructor(props){
     super(props);
-    this.state = {
-      header: ' ',
-      storyText: ' ',
+    this.state = {4
+      story: ' ',
       title: ' ',
       author: ' '
     }
   }
+
+  submitStory=()=>{
+    db.collection("Stories").add({
+      title: this.state.title,
+      author: this.state.author,
+      story: this.state.story
+
+    })
+    this.setState({
+      title: ' ',
+      author: ' ',
+      story: ' '
+    })
+  }
+  submitStory = () =>{}
+
   render(){
     return(
       
@@ -59,6 +76,15 @@ export default class WriteStoryScreen extends React.Components{
             })
           }}
           />
+          <TouchableOpacity style = {styles.buttonText}
+           onPress = {()=>{
+             this.submitStory()
+           }}
+          >
+          
+          <Text style = {styles.buttonText}>  Submit  </Text>
+          </TouchableOpacity>
+
         </View>
 
        
